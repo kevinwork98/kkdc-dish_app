@@ -1,6 +1,9 @@
 library(dplyr)
-library(shiny)
 
-filterState <- function(stateName)  {
+findDish <- function(dishName)  {
+  rowReturn <- filter(nyDishSet, grepl(dishName, name, ignore.case = TRUE))
+#  onlyNames <- rowReturn(rowReturn$onlyNames)
   
 }
+
+

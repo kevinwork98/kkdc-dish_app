@@ -14,10 +14,10 @@ library(dplyr)
 # Change these to reflect the path to the files on your local machine
 # May or may not need to find a way to upload compressed files and unzip
 # For use in the shiny app
-'dishes <- read.csv("data/Dish.csv")
-menus <- read.csv("data/Menu.csv")
-menu_items <- read.csv("data/MenuItem.csv")
-menu_pages <- read.csv("data/MenuPage.csv")'
+'menus <- read.csv("data/Menu.csv")
+dishes <- read.csv("data/Dish.csv")
+menu_pages <- read.csv("data/MenuPage.csv")
+menu_items <- read.csv("data/MenuItem.csv")'
 
 # filter menu datasets
 # possibility of making this reactively filter to user-specified location?
@@ -33,10 +33,10 @@ write.csv(item_filter, "data/new_york_items.csv")
 write.csv(dish_filter, "data/new_york_dishes.csv")'
 #commented out
 
-nyDishSet <- read.csv("data/new_york_dishes.csv")
-nyDishItems <- read.csv("data/new_york_items.csv")
-nyMenus <- read.csv("data/new_york_menus.csv")
-nyPages <- read.csv("data/new_york_pages.csv")
+ny_menus <- read.csv("data/new_york_menus.csv")
+ny_pages <- read.csv("data/new_york_pages.csv")
+ny_items <- read.csv("data/new_york_items.csv")
+ny_dishes <- read.csv("data/new_york_dishes.csv")
 
 source("scripts/functions.R")
 

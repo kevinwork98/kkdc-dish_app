@@ -13,17 +13,11 @@ library(shiny)
 shinyUI(fluidPage(
   
   # Application title
-  titlePanel("Washington Restaurant and Menu Item Search"),
+  titlePanel("New York Restaurant and Menu Item Search"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30),
-       
        textInput("text",
                  label = h3("Text input"),
                  value = "Enter text..."),

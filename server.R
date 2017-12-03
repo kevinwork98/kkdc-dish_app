@@ -38,16 +38,13 @@ nyDishItems <- read.csv("data/new_york_items.csv")
 nyMenus <- read.csv("data/new_york_menus.csv")
 nyPages <- read.csv("data/new_york_pages.csv")
 
-# Define non-reactive functions here
-#
-#
-#
-
+source("scripts/functions.R")
 
 # Define server functions that reactively respond to user queries
 shinyServer(function(input, output) {
   output$value <- renderPrint({
-    input$text
+    var <- input$text
+    filterState(var)
   })
   
   output$dish_price_graph <- renderPlot({

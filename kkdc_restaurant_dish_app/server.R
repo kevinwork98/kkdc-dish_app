@@ -33,6 +33,11 @@ write.csv(item_filter, "data/new_york_items.csv")
 write.csv(dish_filter, "data/new_york_dishes.csv")'
 #commented out
 
+nyDishSet <- read.csv("data/new_york_dishes.csv")
+nyDishItems <- read.csv("data/new_york_items.csv")
+nyMenus <- read.csv("data/new_york_menus.csv")
+nyPages <- read.csv("data/new_york_pages.csv")
+
 # Define non-reactive functions here
 #
 #

@@ -1,9 +1,14 @@
 library(dplyr)
 
 findDish <- function(dishName)  {
-  rowReturn <- filter(nyDishSet, grepl(dishName, name, ignore.case = TRUE))
+  rowReturn <- filter(nyDishItems, grepl(dishName, name, ignore.case = TRUE))
 #  onlyNames <- rowReturn(rowReturn$onlyNames)
-  
+  return(rowReturn)
 }
 
+findPrice <- function(min, max){
+  rowReturn <- filter(nyDishItems, price >= min & price <= max) 
+  return(rowReturn)
+}
 
+findRestuarant <- function()

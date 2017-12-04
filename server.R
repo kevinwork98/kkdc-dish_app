@@ -40,8 +40,21 @@ nyPages <- read.csv("data/new_york_pages.csv")
 
 source("scripts/functions.R")
 
-# Define server functions that reactively respond to user queries
+
+# Define server functions that reactivel by respond to user queries
 shinyServer(function(input, output) {
+  
+  testInput <- reactive ({
+    frame <- findDish(input$text)
+    dishes <- unique(frame$name)
+  })
+  
+  #Using data passed from ui.R
+  output$dishFind <- renderUI({
+    selectInput("variable1", "Select Specific Result", as.list(testInput))
+  })
+  
+  
   output$value <- renderPrint({
     var <- input$text
     filterState(var)

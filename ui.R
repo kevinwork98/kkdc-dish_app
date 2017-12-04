@@ -8,6 +8,8 @@
 #
 
 library(shiny)
+source("scripts/functions.R")
+
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -19,13 +21,15 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
        textInput("text",
-                 label = h3("Text input"),
+                 label = h3("Input Search Parameter"),
                  value = "Enter text..."),
        
-       selectInput("select",
-                   label = h3("Select box"), 
-                   choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
-                   selected = 1)
+       # selectInput("select",
+       #             label = h3("Select Specific Result"), 
+       #            # choices = colnames(dishFind[1:ncol(dishFind)]), 
+       #             choices = ishFind[,1],
+       #             selected = 1)
+       uiOutput("dishFind")
     ),
     
     # Show a plot of the generated distribution

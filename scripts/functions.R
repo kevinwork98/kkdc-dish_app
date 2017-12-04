@@ -1,9 +1,10 @@
 library(dplyr)
 library(ggplot2)
-
+library(lubridate)
 ny_menus <- read.csv("data/nyMenusCoor.csv")
 ny_pages <- read.csv("data/new_york_pages.csv")
 ny_dishes <- read.csv("data/new_york_dishes.csv")
+ny_menus <- filter(ny_menus, 1900 >= year(as.Date(date)) & year(as.Date(date)) <= 1910 )
 ny_menus <- filter(ny_menus, lat != 0)
 
 findDish <- function(dishName)  {
@@ -34,6 +35,11 @@ dishByRestaurant <- function(dishQuery, priceQuery, restaurant){
   return(dishes)
 }
 
+plotMap <- function(plotData){
+  length <- nrow(plotData)
+  leaflet(data = plotData[1:length,]) %>% addTiles() %>%
+    addMarkers(~lng, ~lat, popup = ~date, clusterOptions = markerClusterOptions())
+}
 # reference code for getting/using datasets 
 # get menu datasets
 'menus <- read.csv("data/Menu.csv")

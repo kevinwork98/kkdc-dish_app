@@ -13,7 +13,7 @@ source("scripts/functions.R")
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-  
+  includeCSS("styles.css"),
   # Application title
   titlePanel("New York Restaurant and Menu Item Search"),
   

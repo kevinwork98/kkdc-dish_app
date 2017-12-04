@@ -25,7 +25,7 @@ mapRestaurant <- function(dishQuery, priceQuery, restaurantQuery){
   return(returnRow)
 }
 
-dishByRestaurant <- function(dishQuery, dishQuery, restaurant){
+dishByRestaurant <- function(dishQuery, priceQuery, restaurant){
   specRestaurant <- filter(ny_menus, lat == restaurant$lat)
   specRestaurant <- filter(specRestaurant, lng == restaurant$lng)
   specPage <- filter(ny_pages, menu_id == specRestaurant$id)

@@ -8,7 +8,7 @@
 #
 
 library(shiny)
-
+library(leaflet)
 source("scripts/functions.R")
 
 # Define server functions that reactivel by respond to user queries
@@ -34,7 +34,9 @@ shinyServer(function(input, output) {
   output$value <- renderPrint({
     
   })
-  
+  output$map <- renderLeaflet({
+    plotMap(ny_menus)
+  })
   output$dish_price_graph <- renderPlot({
     
   })

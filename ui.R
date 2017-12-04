@@ -8,6 +8,8 @@
 #
 
 library(shiny)
+source("scripts/functions.R")
+
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -18,14 +20,20 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-       textInput("text",
-                 label = h3("Text input"),
-                 value = "Enter text..."),
+       textInput("dish_input",
+                 label = h3("Search by Dish:"),
+                 value = "<Dish/Ingredient Name>"),
        
-       selectInput("select",
-                   label = h3("Select box"), 
-                   choices = list("Choice 1" = 1, "Choice 2" = 2, "Choice 3" = 3), 
-                   selected = 1)
+       uiOutput("dishResults"),
+       
+       textInput("restaurant_input",
+                 label = h3("Search by Restaurant:"),
+                 value = "<Restaurant Name>"),
+       
+       uiOutput("restaurantResults"),
+       
+       sliderInput("price_slider", label = h3("Price Range"), min = 0, 
+                   max = 400, value = 50)
     ),
     
     # Show a plot of the generated distribution

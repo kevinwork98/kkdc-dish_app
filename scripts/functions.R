@@ -1,7 +1,7 @@
 library(dplyr)
 library(ggplot2)
 
-ny_menus <- read.csv("data/nyMenusLatLong.csv")
+ny_menus <- read.csv("data/new_york_menus.csv")
 ny_pages <- read.csv("data/new_york_pages.csv")
 ny_dishes <- read.csv("data/new_york_dishes.csv")
 

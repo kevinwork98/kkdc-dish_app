@@ -1,11 +1,21 @@
 library(dplyr)
 library(ggplot2)
 library(lubridate)
+<<<<<<< HEAD
 ny_menus <- read.csv("data/nyMenusCoor.csv")
 ny_pages <- read.csv("data/new_york_pages.csv")
 ny_dishes <- read.csv("data/new_york_dishes.csv")
 ny_menus <- filter(ny_menus, 1900 >= year(as.Date(date)) & year(as.Date(date)) <= 1910 )
+=======
+
+ny_menus <- read.csv("data/nyMenusCoor.csv")
+ny_pages <- read.csv("data/new_york_pages.csv")
+ny_dishes <- read.csv("data/new_york_dishes.csv")
+ny_menus <- filter(ny_menus, 1901 <= year(as.Date(date)) & year(as.Date(date)) <= 1910)
+>>>>>>> 584ec11a6ebb3974d819e698a92d6349d52eee3b
 ny_menus <- filter(ny_menus, lat != 0)
+ny_pages <- filter(ny_pages, menu_id %in% ny_menus$id)
+ny_dishes <-filter(ny_dishes, menu_page_id %in% ny_pages$id)
 
 findDish <- function(dishName)  {
   filter(ny_dishes, grepl(dishName, name, ignore.case = TRUE))

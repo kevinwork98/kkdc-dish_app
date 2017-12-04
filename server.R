@@ -13,7 +13,6 @@ library(dplyr)
 
 ny_menus <- read.csv("data/new_york_menus.csv")
 ny_pages <- read.csv("data/new_york_pages.csv")
-ny_items <- read.csv("data/new_york_items.csv")
 ny_dishes <- read.csv("data/new_york_dishes.csv")
 
 source("scripts/functions.R")

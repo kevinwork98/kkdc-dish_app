@@ -5,7 +5,7 @@ findDish <- function(dishName)  {
 }
 
 findPrice <- function(min, max){
-  filter(ny_items, price >= min & price <= max) 
+  filter(ny_dishes, price >= min & price <= max) 
 }
 
 findRestaurant <- function(restaurantName){

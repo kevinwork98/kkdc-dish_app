@@ -1,9 +1,10 @@
 library(dplyr)
 library(ggplot2)
 
-ny_menus <- read.csv("data/new_york_menus.csv")
+ny_menus <- read.csv("data/nyMenusCoor.csv")
 ny_pages <- read.csv("data/new_york_pages.csv")
 ny_dishes <- read.csv("data/new_york_dishes.csv")
+ny_menus <- filter(ny_menus, lat != 0)
 
 findDish <- function(dishName)  {
   filter(ny_dishes, grepl(dishName, name, ignore.case = TRUE))

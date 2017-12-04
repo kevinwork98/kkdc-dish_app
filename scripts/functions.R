@@ -42,8 +42,8 @@ item_filter <- menu_items[menu_items$menu_page_id %in% page_filter$id, ]
 dish_filter <- dishes[dishes$id %in% item_filter$dish_id, ]'
 
 # save filtered datasets to new sets
-'write.csv(menu_filter, "data/new_york_menus.csv")
-write.csv(page_filter, "data/new_york_pages.csv")
-write.csv(item_filter, "data/new_york_items.csv")
-write.csv(dish_filter, "data/new_york_dishes.csv")'
+'write.csv(menu_filter, "data/new_york_menus.csv", row.names = FALSE)
+write.csv(page_filter, "data/new_york_pages.csv", row.names = FALSE)
+write.csv(item_filter, "data/new_york_items.csv", row.names = FALSE)
+write.csv(dish_filter, "data/new_york_dishes.csv", row.names = FALSE)'
 #commented out

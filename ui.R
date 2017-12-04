@@ -22,13 +22,13 @@ shinyUI(fluidPage(
     sidebarPanel(
        textInput("dish_input",
                  label = h3("Search by Dish:"),
-                 value = "<Dish/Ingredient Name>"),
+                 value = ""),
        
        uiOutput("dishResults"),
        
        textInput("restaurant_input",
                  label = h3("Search by Restaurant:"),
-                 value = "<Restaurant Name>"),
+                 value = ""),
        
        uiOutput("restaurantResults"),
        

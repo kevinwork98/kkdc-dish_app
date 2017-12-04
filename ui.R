@@ -20,16 +20,20 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-       textInput("text",
-                 label = h3("Input Search Parameter"),
-                 value = "Enter text..."),
+       textInput("dish_input",
+                 label = h3("Search by Dish:"),
+                 value = "<Dish/Ingredient Name>"),
        
-       # selectInput("select",
-       #             label = h3("Select Specific Result"), 
-       #            # choices = colnames(dishFind[1:ncol(dishFind)]), 
-       #             choices = ishFind[,1],
-       #             selected = 1)
-       uiOutput("dishFind")
+       uiOutput("dishResults"),
+       
+       textInput("restaurant_input",
+                 label = h3("Search by Restaurant:"),
+                 value = "<Restaurant Name>"),
+       
+       uiOutput("restaurantResults"),
+       
+       sliderInput("price_slider", label = h3("Price Range"), min = 0, 
+                   max = 400, value = 50)
     ),
     
     # Show a plot of the generated distribution

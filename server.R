@@ -44,20 +44,25 @@ source("scripts/functions.R")
 # Define server functions that reactivel by respond to user queries
 shinyServer(function(input, output) {
   
-  testInput <- reactive ({
-    frame <- findDish(input$text)
-    dishes <- unique(frame$name)
+  dish_search <- reactive ({
+    findDish(input$text)$name
+  })
+  
+  restaurant_search <- reactive ({
+    findRestaurant(input$text)$name
   })
   
   #Using data passed from ui.R
-  output$dishFind <- renderUI({
-    selectInput("variable1", "Select Specific Result", as.list(testInput))
+  output$dishResults <- renderUI({
+    selectInput("dish_choice", "Select Specific Dish:", as.list(dish_search()))
   })
   
+  output$restaurantResults <- renderUI({
+    selectInput("restaurant_choice", "Select Specific Restaurant:", as.list(restaurant_search()))
+  })
   
   output$value <- renderPrint({
-    var <- input$text
-    filterState(var)
+    
   })
   
   output$dish_price_graph <- renderPlot({

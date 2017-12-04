@@ -11,4 +11,9 @@ findPrice <- function(min, max){
   return(rowReturn)
 }
 
-findRestuarant <- function()
+findRestuarant <- function(restuarantName){
+  rowReturn <- filter(nyMenus, grepl(restuarantName, location, ignore.case = TRUE))
+  return(rowReturn)
+}
+
+findLocation <- 

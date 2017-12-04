@@ -12,6 +12,15 @@ findRestaurant <- function(restaurantName){
   filter(ny_menus, grepl(restaurantName, location, ignore.case = TRUE))
 }
 
+mapRestaurant <- function(dishQuery, priceQuery, restaurantQuery){
+  returnRow <- filter(ny_menus, location %in% restaurantQuery$location)
+  filteredPages <- filter(ny_pages, id %in% dishQuery$menu_page_id)
+  filteredPages <- filter(ny_pages, id %in% priceQuery$menu_page_id)
+  returnRow <- filter(ny_menus, id %in% filterPages$menu_id)
+  return(returnRow)
+}
+
+dishByRestaurant <- function()
 #get menu datasets
 'menus <- read.csv("data/Menu.csv")
 dishes <- read.csv("data/Dish.csv")

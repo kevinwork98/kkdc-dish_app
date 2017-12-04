@@ -1,4 +1,9 @@
 library(dplyr)
+library(ggplot2)
+
+ny_menus <- read.csv("data/new_york_menus.csv")
+ny_pages <- read.csv("data/new_york_pages.csv")
+ny_dishes <- read.csv("data/new_york_dishes.csv")
 
 findDish <- function(dishName)  {
   filter(ny_dishes, grepl(dishName, name, ignore.case = TRUE))
@@ -21,7 +26,9 @@ mapRestaurant <- function(dishQuery, priceQuery, restaurantQuery){
 }
 
 dishByRestaurant <- function()
-#get menu datasets
+
+# reference code for getting/using datasets 
+# get menu datasets
 'menus <- read.csv("data/Menu.csv")
 dishes <- read.csv("data/Dish.csv")
 menu_pages <- read.csv("data/MenuPage.csv")

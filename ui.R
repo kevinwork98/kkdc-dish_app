@@ -33,7 +33,7 @@ shinyUI(fluidPage(
        uiOutput("restaurantResults"),
        
        sliderInput("price_slider", label = h3("Price Range"), min = 0, 
-                   max = 400, value = c(150, 250))
+                   max = 400, value = c(100, 300))
     ),
     
     # Show a plot of the generated distribution

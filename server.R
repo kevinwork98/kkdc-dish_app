@@ -8,15 +8,8 @@
 #
 
 library(shiny)
-library(ggplot2)
-library(dplyr)
-
-ny_menus <- read.csv("data/new_york_menus.csv")
-ny_pages <- read.csv("data/new_york_pages.csv")
-ny_dishes <- read.csv("data/new_york_dishes.csv")
 
 source("scripts/functions.R")
-
 
 # Define server functions that reactivel by respond to user queries
 shinyServer(function(input, output) {
@@ -26,7 +19,7 @@ shinyServer(function(input, output) {
   })
   
   restaurant_search <- reactive ({
-    findRestaurant(input$restaurant_input)$name
+    findRestaurant(input$restaurant_input)$location
   })
   
   #Using data passed from ui.R

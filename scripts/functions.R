@@ -9,5 +9,5 @@ findPrice <- function(min, max){
 }
 
 findRestaurant <- function(restaurantName){
-  filter(nyMenus, grepl(restaurantName, location, ignore.case = TRUE))
+  filter(ny_menus, grepl(restaurantName, location, ignore.case = TRUE))
 }

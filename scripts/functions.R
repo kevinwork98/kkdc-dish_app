@@ -16,4 +16,3 @@ findRestuarant <- function(restuarantName){
   return(rowReturn)
 }
 
-findLocation <- 

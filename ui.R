@@ -6,7 +6,6 @@
 # 
 #    http://shiny.rstudio.com/
 #
-
 library(shiny)
 source("scripts/functions.R")
 library(leaflet)
@@ -38,7 +37,7 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-      leafletOutput("map", width="100%", height="100%")
+      leafletOutput("map", height = 800)
     )
   )
 ))

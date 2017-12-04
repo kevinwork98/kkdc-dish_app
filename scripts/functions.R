@@ -5,8 +5,9 @@ library(lubridate)
 ny_menus <- read.csv("data/nyMenusCoor.csv")
 ny_pages <- read.csv("data/new_york_pages.csv")
 ny_dishes <- read.csv("data/new_york_dishes.csv")
-ny_menus <- filter(ny_menus, 1901 <= year(as.Date(date)) & year(as.Date(date)) <= 1910)
+ny_menus <- filter(ny_menus, 1900 <= year(as.Date(date)) & year(as.Date(date)) <= 1910)
 ny_menus <- filter(ny_menus, lat != 0)
+ny_menus <- ny_menus[!duplicated(ny_menus$lat), ]
 ny_pages <- filter(ny_pages, menu_id %in% ny_menus$id)
 ny_dishes <-filter(ny_dishes, menu_page_id %in% ny_pages$id)
 
@@ -40,8 +41,10 @@ dishByRestaurant <- function(dishQuery, priceQuery, restaurant){
 
 plotMap <- function(plotData){
   length <- nrow(plotData)
-  leaflet(data = plotData[1:length,]) %>% addTiles() %>%
+  plot <- leaflet(data = plotData[1:length,]) %>% addTiles() %>%
     addMarkers(~lng, ~lat, popup = ~date, clusterOptions = markerClusterOptions())
+  print('here')
+  return(plot)
 }
 # reference code for getting/using datasets 
 # get menu datasets

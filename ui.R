@@ -35,7 +35,7 @@ shinyUI(fluidPage(
     
     # Show a map of the chosen restaurant(s)
     mainPanel(
-      #leafletOutput("map", height = 800)
+      leafletOutput("map", height = 800)
     )
   )
 ))

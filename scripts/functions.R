@@ -14,12 +14,12 @@ ny_pages <- filter(ny_pages, menu_id %in% ny_menus$id)
 ny_dishes <- filter(ny_dishes, menu_page_id %in% ny_pages$id)
 '
 
-findRestaurant <- function(restaurantLocation){
-  filter(ny_menus, grepl(restaurantLocation, location_date, ignore.case = TRUE))
+findRestaurant <- function(restaurant_location){
+  filter(ny_menus, grepl(restaurant_location, location_date, ignore.case = TRUE))
 }
 
-findDish <- function(dishName)  {
-  filter(ny_dishes, grepl(dishName, name, ignore.case = TRUE))
+findDish <- function(dish_name)  {
+  filter(ny_dishes, grepl(dish_name, name, ignore.case = TRUE))
 }
 
 #functionally the same as mapRestaurant,
@@ -27,9 +27,9 @@ findDish <- function(dishName)  {
 findMenuWithDish <- function(restaurant, dish) {
   menu_with_dish <- restaurant
   #filter pages to pages that contain dish
-  filteredPages <- filter(ny_pages, id %in% dish$menu_page_id)
+  pages_with_dish <- filter(ny_pages, id %in% dish$menu_page_id)
   #filter restaurant return to menus that contain those pages
-  menu_with_dish <- filter(menu_with_dish, id %in% filteredPages$menu_id)
+  menu_with_dish <- filter(menu_with_dish, id %in% pages_with_dish$menu_id)
   #returns filtered menu
   return(menu_with_dish)
 }
@@ -43,7 +43,7 @@ mapRestaurant <- function(dishQuery, priceQuery, restaurantQuery){
   return(returnRow)
 }
 '
-
+'
 dishByRestaurant <- function(dishQuery, priceQuery, restaurant){
   specRestaurant <- filter(ny_menus, lat == restaurant$lat)
   specRestaurant <- filter(specRestaurant, lng == restaurant$lng)
@@ -51,15 +51,15 @@ dishByRestaurant <- function(dishQuery, priceQuery, restaurant){
   dishes <- filter(ny_dishes, menu_page_id == specPage$id)
   return(dishes)
 }
-
 '
-plotMap <- function(plotData){
-  length <- nrow(plotData)
-  plot <- leaflet(data = plotData[1:length,]) %>% addTiles() %>%
+
+plotMap <- function(plot_data){
+  length <- nrow(plot_data)
+  plot <- leaflet(data = plot_data[1:length,]) %>% addTiles() %>%
     addMarkers(~lng, ~lat, popup = ~location_date, clusterOptions = markerClusterOptions())
   return(plot)
 }
-'
+
 # reference code for getting/using datasets 
 # get menu datasets
 'menus <- read.csv("data/Menu.csv")

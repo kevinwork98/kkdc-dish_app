@@ -17,6 +17,48 @@ findRestaurant <- function(restaurantName){
   filter(ny_menus, grepl(restaurantName, location, ignore.case = TRUE))
 }
 
+getDishMenu <- function(menus_with_dish, dishes_of_menu) {
+  chosen_menu <- data.frame(menu_id = integer,
+                            location = character(),
+                            menu_page_id = integer,
+                            dish_id = integer,
+                            dish_name = character(),
+                            dish_price = integer)
+  
+  #get menu id and name of restaurants that serve chosen dish
+  chosen_menu$menu_id <- menus_with_dish$id
+  
+  #chosen_menu$location <- menus_with_dish$location
+  
+  #if they specified a menu, filter out all menus that are not that menu
+  chosen_menu <- filter(chosen_menu,
+                        dishes_of_menu$menu_id == chosen_menu$menu_id)
+  
+  #get all menu pages that correspond to that menu
+  filter_page_by_dish <- filter(ny_pages, ny_pages$id == chosen_menu$menu_page_id)
+  #### YOU WERE HERE
+  chosen_menu$menu_page_id <- filter(ny_pages,
+                                     ny_pages$menu_id == chosen_menu$menu_id)$menu_page_id
+  
+  #get all dishes from those pages
+  filter_dish_by_page <- filter(ny_dishes, ny_dishes$menu_page_id == chosen_menu$menu_page_id)
+  chosen_menu$dish_id <- filter_dish_by_page$dish_id
+  chosen_menu$dish_name <- filter_dish_by_page$name
+  
+  #if they specified a dish, filter out all dishes that are not that dish
+  filter_dish_by_dish <- filter(menus_with_dish, menus_with_dish$dish_id == chosen_menu$dish_id)
+  chosen_menu$dish_id <- filter_dish_by_dish$dish_id
+  
+  #get dish price
+  chosen_menu$dish_price <- filter(chosen_menu, menus_with_dish$dish_id == chosen_menu$dish_id)
+  
+  return(chosen_menu)
+}
+
+test_dish <- findDish("Celery")
+test_menu <- findRestaurant("")
+test_menu_dish <- getDishMenu(test_dish, test_menu)
+
 mapRestaurant <- function(dishQuery, priceQuery, restaurantQuery){
   returnRow <- filter(ny_menus, location %in% restaurantQuery$location)
   filteredPages <- filter(ny_pages, id %in% dishQuery$menu_page_id)

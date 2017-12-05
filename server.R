@@ -31,8 +31,18 @@ shinyServer(function(input, output) {
     selectInput("restaurant_choice", "Select Specific Restaurant:", as.list(restaurant_search()))
   })
   
-  output$value <- renderPrint({
-    
+
+  '
+  output$dish_slider <- renderUI({
+    sliderInput("price_range", label = h3("Price Range"), min = 0, 
+                max = 400, value = c(100, 300))
+  })
+  '
+  
+  output$dishMenuPriceResults <- reactive({
+    menus_with_dish <- findDish(input$dish_choice)
+    dishes_of_menu <- findRestaurant(input$restaurant_choice)
+    return(getDishMenu(menus_with_dish, dishes_of_menu))
   })
   
   output$dish_price_graph <- renderPlot({

@@ -32,7 +32,7 @@ shinyUI(fluidPage(
        
        uiOutput("restaurantResults"),
        
-       sliderInput("price_slider", label = h3("Price Range"), min = 0, 
+       sliderInput("price_range", label = h3("Price Range"), min = 0, 
                    max = 400, value = c(100, 300))
     ),
     

@@ -30,18 +30,21 @@ shinyServer(function(input, output) {
     selectInput("dish_choice", "Select Specific Dish:", as.list(searchDish()))
   })
   
-  getRestaurantWithDish <- reactive({
+  getMenuWithDish <- reactive({
     restaurant <- findRestaurant(input$restaurant_choice)
     dish <- findDish(input$dish_choice)
-    return(findRestaurantWithDish(restaurant, dish))
+    return(findMenuWithDish(restaurant, dish))
   })
   
   '
   output$map <- renderLeaflet({
-    plotMap(ny_menus)
+    menu_to_map <- getMenuWithDish()
+    #plotMap(ny_menus)
+    plotMap(menu_to_map)
   })
-
+  ''
   output$table <- renderDataTable({ #maybe renderTable
+    menu_to_output <- getMenuWithDish()
     #table output here
   })
   '

@@ -22,10 +22,19 @@ findDish <- function(dishName)  {
   filter(ny_dishes, grepl(dishName, name, ignore.case = TRUE))
 }
 
-findRestaurantWithDish <- function(restaurant, dish) {
-  
+#functionally the same as mapRestaurant,
+#filters already completed in findRestaurant and findDish
+findMenuWithDish <- function(restaurant, dish) {
+  menu_with_dish <- restaurant
+  #filter pages to pages that contain dish
+  filteredPages <- filter(ny_pages, id %in% dish$menu_page_id)
+  #filter restaurant return to menus that contain those pages
+  menu_with_dish <- filter(menu_with_dish, id %in% filteredPages$menu_id)
+  #returns filtered menu
+  return(menu_with_dish)
 }
 
+'
 mapRestaurant <- function(dishQuery, priceQuery, restaurantQuery){
   returnRow <- filter(ny_menus, location %in% restaurantQuery$location)
   filteredPages <- filter(ny_pages, id %in% dishQuery$menu_page_id)
@@ -33,6 +42,7 @@ mapRestaurant <- function(dishQuery, priceQuery, restaurantQuery){
   returnRow <- filter(returnRow, id %in% filteredPages$menu_id)
   return(returnRow)
 }
+'
 
 dishByRestaurant <- function(dishQuery, priceQuery, restaurant){
   specRestaurant <- filter(ny_menus, lat == restaurant$lat)
@@ -46,7 +56,7 @@ dishByRestaurant <- function(dishQuery, priceQuery, restaurant){
 plotMap <- function(plotData){
   length <- nrow(plotData)
   plot <- leaflet(data = plotData[1:length,]) %>% addTiles() %>%
-    addMarkers(~lng, ~lat, popup = ~location, clusterOptions = markerClusterOptions())
+    addMarkers(~lng, ~lat, popup = ~location_date, clusterOptions = markerClusterOptions())
   return(plot)
 }
 '

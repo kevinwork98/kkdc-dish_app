@@ -11,6 +11,7 @@ ny_menus <- ny_menus[!duplicated(ny_menus$lat), ]
 ny_pages <- filter(ny_pages, menu_id %in% ny_menus$id)
 ny_dishes <-filter(ny_dishes, menu_page_id %in% ny_pages$id)
 
+
 findDish <- function(dishName)  {
   filter(ny_dishes, grepl(dishName, name, ignore.case = TRUE))
 }
@@ -26,8 +27,8 @@ findRestaurant <- function(restaurantName){
 mapRestaurant <- function(dishQuery, priceQuery, restaurantQuery){
   returnRow <- filter(ny_menus, location %in% restaurantQuery$location)
   filteredPages <- filter(ny_pages, id %in% dishQuery$menu_page_id)
-  filteredPages <- filter(ny_pages, id %in% priceQuery$menu_page_id)
-  returnRow <- filter(ny_menus, id %in% filterPages$menu_id)
+  filteredPages <- filter(filteredPages, id %in% priceQuery$menu_page_id)
+  returnRow <- filter(returnRow, id %in% filteredPages$menu_id)
   return(returnRow)
 }
 
@@ -42,8 +43,7 @@ dishByRestaurant <- function(dishQuery, priceQuery, restaurant){
 plotMap <- function(plotData){
   length <- nrow(plotData)
   plot <- leaflet(data = plotData[1:length,]) %>% addTiles() %>%
-    addMarkers(~lng, ~lat, popup = ~date, clusterOptions = markerClusterOptions())
-  print('here')
+    addMarkers(~lng, ~lat, popup = ~location, clusterOptions = markerClusterOptions())
   return(plot)
 }
 # reference code for getting/using datasets 

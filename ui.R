@@ -14,30 +14,27 @@ library(leaflet)
 shinyUI(fluidPage(
   includeCSS("styles.css"),
   # Application title
-  titlePanel("New York Restaurant and Menu Item Search"),
+  titlePanel("New York (1900-1910) Restaurant and Dish Search"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-       textInput("dish_input",
-                 label = h3("Search by Dish:"),
-                 value = ""),
-       
-       uiOutput("dishResults"),
-       
        textInput("restaurant_input",
                  label = h3("Search by Restaurant:"),
                  value = ""),
        
        uiOutput("restaurantResults"),
        
-       sliderInput("price_range", label = h3("Price Range"), min = 0, 
-                   max = 400, value = c(100, 300))
+       textInput("dish_input",
+                 label = h3("Search by Dish:"),
+                 value = ""),
+       
+       uiOutput("dishResults")
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
-      leafletOutput("map", height = 800)
+      #leafletOutput("map", height = 800)
     )
   )
 ))

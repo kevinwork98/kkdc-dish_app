@@ -13,41 +13,30 @@ source("scripts/functions.R")
 
 # Define server functions that reactivel by respond to user queries
 shinyServer(function(input, output) {
+  searchRestaurant <- reactive ({
+    findRestaurant(input$restaurant_input)$location_date
+  })
   
-  dish_search <- reactive ({
+  searchDish <- reactive ({
     findDish(input$dish_input)$name
   })
   
-  restaurant_search <- reactive ({
-    findRestaurant(input$restaurant_input)$location
-  })
-  
   #Using data passed from ui.R
-  output$dishResults <- renderUI({
-    selectInput("dish_choice", "Select Specific Dish:", as.list(dish_search()))
-  })
-  
   output$restaurantResults <- renderUI({
-    selectInput("restaurant_choice", "Select Specific Restaurant:", as.list(restaurant_search()))
+    selectInput("restaurant_choice", "Select Specific Restaurant:", as.list(searchRestaurant()))
   })
   
-
-  '
-  output$dish_slider <- renderUI({
-    sliderInput("price_range", label = h3("Price Range"), min = 0, 
-                max = 400, value = c(100, 300))
+  output$dishResults <- renderUI({
+    selectInput("dish_choice", "Select Specific Dish:", as.list(searchDish()))
   })
-  '
   
-  output$dishMenuPriceResults <- reactive({
-    menus_with_dish <- findDish(input$dish_choice)
-    dishes_of_menu <- findRestaurant(input$restaurant_choice)
-    return(getDishMenu(menus_with_dish, dishes_of_menu))
+  getRestaurantWithDish <- reactive({
+    restaurant <- findRestaurant(input$restaurant_choice)
+    dish <- findDish(input$dish_choice)
+    return(findRestaurantWithDish(restaurant, dish))
   })
-  output$map <- renderLeaflet({
-    plotMap(ny_menus)
-  })
-  output$dish_price_graph <- renderPlot({
-    
-  })
+  
+  #output$map <- renderLeaflet({
+    #plotMap(ny_menus)
+  #})
 })

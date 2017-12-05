@@ -16,7 +16,8 @@ shinyUI(fluidPage(
   # Application title
   titlePanel("New York (1900-1910) Restaurant and Dish Search"),
   
-  # Sidebar with a slider input for number of bins 
+  # Sidebar with text inputs for restaurant/dish searches,
+  # select inputs for specific restaurants/dishes
   sidebarLayout(
     sidebarPanel(
        textInput("restaurant_input",
@@ -32,7 +33,7 @@ shinyUI(fluidPage(
        uiOutput("dishResults")
     ),
     
-    # Show a plot of the generated distribution
+    # Show a map of the chosen restaurant(s)
     mainPanel(
       #leafletOutput("map", height = 800)
     )

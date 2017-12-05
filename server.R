@@ -36,7 +36,13 @@ shinyServer(function(input, output) {
     return(findRestaurantWithDish(restaurant, dish))
   })
   
-  #output$map <- renderLeaflet({
-    #plotMap(ny_menus)
-  #})
+  '
+  output$map <- renderLeaflet({
+    plotMap(ny_menus)
+  })
+
+  output$table <- renderDataTable({ #maybe renderTable
+    #table output here
+  })
+  '
 })

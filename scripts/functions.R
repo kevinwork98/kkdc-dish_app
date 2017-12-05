@@ -1,9 +1,16 @@
 library(dplyr)
 library(ggplot2)
+library(lubridate)
 
-ny_menus <- read.csv("data/new_york_menus.csv")
+ny_menus <- read.csv("data/nyMenusCoor.csv")
 ny_pages <- read.csv("data/new_york_pages.csv")
 ny_dishes <- read.csv("data/new_york_dishes.csv")
+ny_menus <- filter(ny_menus, 1900 <= year(as.Date(date)) & year(as.Date(date)) <= 1910)
+ny_menus <- filter(ny_menus, lat != 0)
+ny_menus <- ny_menus[!duplicated(ny_menus$lat), ]
+ny_pages <- filter(ny_pages, menu_id %in% ny_menus$id)
+ny_dishes <-filter(ny_dishes, menu_page_id %in% ny_pages$id)
+
 
 findDish <- function(dishName)  {
   filter(ny_dishes, grepl(dishName, name, ignore.case = TRUE))
@@ -62,8 +69,8 @@ test_menu_dish <- getDishMenu(test_dish, test_menu)
 mapRestaurant <- function(dishQuery, priceQuery, restaurantQuery){
   returnRow <- filter(ny_menus, location %in% restaurantQuery$location)
   filteredPages <- filter(ny_pages, id %in% dishQuery$menu_page_id)
-  filteredPages <- filter(ny_pages, id %in% priceQuery$menu_page_id)
-  returnRow <- filter(ny_menus, id %in% filterPages$menu_id)
+  filteredPages <- filter(filteredPages, id %in% priceQuery$menu_page_id)
+  returnRow <- filter(returnRow, id %in% filteredPages$menu_id)
   return(returnRow)
 }
 
@@ -75,6 +82,12 @@ dishByRestaurant <- function(dishQuery, priceQuery, restaurant){
   return(dishes)
 }
 
+plotMap <- function(plotData){
+  length <- nrow(plotData)
+  plot <- leaflet(data = plotData[1:length,]) %>% addTiles() %>%
+    addMarkers(~lng, ~lat, popup = ~location, clusterOptions = markerClusterOptions())
+  return(plot)
+}
 # reference code for getting/using datasets 
 # get menu datasets
 'menus <- read.csv("data/Menu.csv")

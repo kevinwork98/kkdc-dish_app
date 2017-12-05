@@ -6,14 +6,13 @@
 # 
 #    http://shiny.rstudio.com/
 #
-
 library(shiny)
 source("scripts/functions.R")
-
+library(leaflet)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-  
+  includeCSS("styles.css"),
   # Application title
   titlePanel("New York Restaurant and Menu Item Search"),
   
@@ -22,13 +21,13 @@ shinyUI(fluidPage(
     sidebarPanel(
        textInput("dish_input",
                  label = h3("Search by Dish:"),
-                 value = "<Dish/Ingredient Name>"),
+                 value = ""),
        
        uiOutput("dishResults"),
        
        textInput("restaurant_input",
                  label = h3("Search by Restaurant:"),
-                 value = "<Restaurant Name>"),
+                 value = ""),
        
        uiOutput("restaurantResults"),
        
@@ -38,7 +37,7 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-       plotOutput("distPlot")
+      leafletOutput("map", height = 800)
     )
   )
 ))

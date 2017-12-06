@@ -1,4 +1,5 @@
 library(dplyr)
+library(leaflet)
 
 #Reading in the data sets
 ny_menus <- read.csv("data/new_york_menus.csv")
@@ -7,13 +8,13 @@ ny_dishes <- read.csv("data/new_york_dishes.csv")
 
 #Finds resturaunt based upon user input. Searches by closest match, not exact match
 findRestaurant <- function(restaurant_location){
-  if (is.null(restaurant_location)) return(ny_menus)
+  if (restaurant_location == "" | is.null(restaurant_location)) return(ny_menus)
   filter(ny_menus, grepl(restaurant_location, location_date, ignore.case = TRUE))
 }
 
 #Finds the user's inputted dish name, does not need to be exact match.
 findDish <- function(dish_name)  {
-  if (is.null(dish_name)) return(ny_dishes)
+  if (dish_name == "" | is.null(dish_name)) return(ny_dishes)
   filter(ny_dishes, grepl(dish_name, name, ignore.case = TRUE))
 }
 
@@ -25,6 +26,7 @@ findMenuWithDish <- function(restaurant, dish) {
   pages_with_dish <- filter(ny_pages, id %in% dish$menu_page_id)
   #filter restaurant return to menus that contain those pages
   menu_with_dish <- filter(menu_with_dish, id %in% pages_with_dish$menu_id)
+  if(nrow(menu_with_dish) == 0) return(restaurant)
   #returns filtered menu
   return(menu_with_dish)
 }

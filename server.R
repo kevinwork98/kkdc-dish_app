@@ -6,6 +6,8 @@
 #
 #    http://shiny.rstudio.com/
 #
+library(leaflet)
+library(shiny)
 source("scripts/functions.R")
 
 # Define server functions that reactivel by respond to user queries
@@ -15,6 +17,7 @@ shinyServer(function(input, output) {
   })
   
   searchDish <- reactive ({
+    if(input$dish_input == "") return(ny_dishes[1:100,]$name)
     findDish(input$dish_input)$name
   })
   

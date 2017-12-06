@@ -5,9 +5,9 @@ account: kevinwork98
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 245005
-bundleId: 1118532
+bundleId: 1119604
 url: https://kevinwork98.shinyapps.io/kkdc-dish_app/
-when: 1512554496.55384
+when: 1512594034.17219
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: README.md|data/data.zip|scripts/.Rhistory

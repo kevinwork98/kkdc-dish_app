@@ -26,17 +26,19 @@ shinyServer(function(input, output) {
     selectInput("restaurant_choice", "Select Specific Restaurant:", as.list(searchRestaurant()))
   })
   
+  #Used to render/filter specific dish after user types in text.
   output$dishResults <- renderUI({
     selectInput("dish_choice", "Select Specific Dish:", as.list(searchDish()))
   })
   
+  #Used for text input widget, uses the inputted text to filter dataset to relevent options.
   getMenuWithDish <- reactive({
     restaurant <- findRestaurant(input$restaurant_choice)
     dish <- findDish(input$dish_choice)
     return(findMenuWithDish(restaurant, dish))
   })
   
-  
+  #Used to render leaflet map
   output$map <- renderLeaflet({
     menu_to_map <- getMenuWithDish()
     #plotMap(ny_menus)

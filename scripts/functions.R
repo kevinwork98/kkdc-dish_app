@@ -2,11 +2,13 @@ library(dplyr)
 library(ggplot2)
 #library(lubridate)
 
+#Reading in the data sets
 ny_menus <- read.csv("data/new_york_menus.csv")
 ny_pages <- read.csv("data/new_york_pages.csv")
 ny_dishes <- read.csv("data/new_york_dishes.csv")
 
-'
+
+'  The lines below were used to initially filter the .csv files.
 ny_menus <- filter(ny_menus, 1900 <= year(as.Date(date)) & year(as.Date(date)) <= 1910)
 ny_menus <- filter(ny_menus, lat != 0)
 #ny_menus <- ny_menus[!duplicated(ny_menus$lat), ]
@@ -14,10 +16,12 @@ ny_pages <- filter(ny_pages, menu_id %in% ny_menus$id)
 ny_dishes <- filter(ny_dishes, menu_page_id %in% ny_pages$id)
 '
 
+#Finds resturaunt based upon user input. Searches by closest match, not exact match
 findRestaurant <- function(restaurant_location){
   filter(ny_menus, grepl(restaurant_location, location_date, ignore.case = TRUE))
 }
 
+#Finds the user's inputted dish name, does not need to be exact match.
 findDish <- function(dish_name)  {
   filter(ny_dishes, grepl(dish_name, name, ignore.case = TRUE))
 }
@@ -34,25 +38,7 @@ findMenuWithDish <- function(restaurant, dish) {
   return(menu_with_dish)
 }
 
-'
-mapRestaurant <- function(dishQuery, priceQuery, restaurantQuery){
-  returnRow <- filter(ny_menus, location %in% restaurantQuery$location)
-  filteredPages <- filter(ny_pages, id %in% dishQuery$menu_page_id)
-  filteredPages <- filter(filteredPages, id %in% priceQuery$menu_page_id)
-  returnRow <- filter(returnRow, id %in% filteredPages$menu_id)
-  return(returnRow)
-}
-'
-'
-dishByRestaurant <- function(dishQuery, priceQuery, restaurant){
-  specRestaurant <- filter(ny_menus, lat == restaurant$lat)
-  specRestaurant <- filter(specRestaurant, lng == restaurant$lng)
-  specPage <- filter(ny_pages, menu_id == specRestaurant$id)
-  dishes <- filter(ny_dishes, menu_page_id == specPage$id)
-  return(dishes)
-}
-'
-
+#Plots the map based upon the search aparameters entered above.
 plotMap <- function(plot_data){
   length <- nrow(plot_data)
   plot <- leaflet(data = plot_data[1:length,]) %>% addTiles() %>%

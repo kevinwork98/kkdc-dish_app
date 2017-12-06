@@ -7,12 +7,13 @@
 #    http://shiny.rstudio.com/
 #
 library(shiny)
-source("scripts/functions.R")
+library(shinythemes)
 library(leaflet)
+source("scripts/functions.R")
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
-  includeCSS("styles.css"),
+  theme = shinytheme("united"),
   # Application title
   titlePanel("New York (1900-1910) Restaurant and Dish Search"),
   

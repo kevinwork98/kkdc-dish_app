@@ -9,11 +9,13 @@ ny_dishes <- read.csv("data/new_york_dishes.csv")
 
 #Finds resturaunt based upon user input. Searches by closest match, not exact match
 findRestaurant <- function(restaurant_location){
+  if (is.null(restaurant_location)) return(ny_menus)
   filter(ny_menus, grepl(restaurant_location, location_date, ignore.case = TRUE))
 }
 
 #Finds the user's inputted dish name, does not need to be exact match.
 findDish <- function(dish_name)  {
+  if (is.null(dish_name)) return(ny_dishes)
   filter(ny_dishes, grepl(dish_name, name, ignore.case = TRUE))
 }
 
@@ -34,7 +36,8 @@ getRestaurantMenu <- function(selected_menu) {
   #filter pages to pages in menu
   pages_in_menu <- filter(ny_pages, menu_id %in% selected_menu$id)
   #filter dishes to dishes within the menu pages
-  dishes_in_menu <- select(filter(ny_dishes, menu_page_id %in% pages_in_menu$id), name, price)
+  dishes_in_menu <- filter(ny_dishes, menu_page_id %in% pages_in_menu$id)
+  dishes_in_menu <- select(dishes_in_menu, name, price)
   dishes_in_menu$price <- paste0("$", dishes_in_menu$price)
   #returns filtered menu
   return(dishes_in_menu)

@@ -9,6 +9,7 @@
 
 library(shiny)
 library(leaflet)
+library(DT)
 source("scripts/functions.R")
 
 # Define server functions that reactivel by respond to user queries
@@ -41,13 +42,11 @@ shinyServer(function(input, output) {
   #Used to render leaflet map
   output$map <- renderLeaflet({
     menu_to_map <- getMenuWithDish()
-    #plotMap(ny_menus)
     plotMap(menu_to_map)
   })
   
-  output$table <- renderDataTable({ #maybe renderTable
-    menu_to_output <- getMenuWithDish()
-    #table output here
+  output$table <- renderDataTable({
+    getRestaurantMenu(getMenuWithDish())
   })
   
 })

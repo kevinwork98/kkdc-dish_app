@@ -7,15 +7,6 @@ ny_menus <- read.csv("data/new_york_menus.csv")
 ny_pages <- read.csv("data/new_york_pages.csv")
 ny_dishes <- read.csv("data/new_york_dishes.csv")
 
-
-'  The lines below were used to initially filter the .csv files.
-ny_menus <- filter(ny_menus, 1900 <= year(as.Date(date)) & year(as.Date(date)) <= 1910)
-ny_menus <- filter(ny_menus, lat != 0)
-#ny_menus <- ny_menus[!duplicated(ny_menus$lat), ]
-ny_pages <- filter(ny_pages, menu_id %in% ny_menus$id)
-ny_dishes <- filter(ny_dishes, menu_page_id %in% ny_pages$id)
-'
-
 #Finds resturaunt based upon user input. Searches by closest match, not exact match
 findRestaurant <- function(restaurant_location){
   filter(ny_menus, grepl(restaurant_location, location_date, ignore.case = TRUE))
@@ -38,6 +29,17 @@ findMenuWithDish <- function(restaurant, dish) {
   return(menu_with_dish)
 }
 
+#Used to create table that can be printed below map
+getRestaurantMenu <- function(selected_menu) {
+  #filter pages to pages in menu
+  pages_in_menu <- filter(ny_pages, menu_id %in% selected_menu$id)
+  #filter dishes to dishes within the menu pages
+  dishes_in_menu <- select(filter(ny_dishes, menu_page_id %in% pages_in_menu$id), name, price)
+  dishes_in_menu$price <- paste0("$", dishes_in_menu$price)
+  #returns filtered menu
+  return(dishes_in_menu)
+}
+
 #Plots the map based upon the search aparameters entered above.
 plotMap <- function(plot_data){
   length <- nrow(plot_data)
@@ -46,7 +48,7 @@ plotMap <- function(plot_data){
   return(plot)
 }
 
-# reference code for getting/using datasets 
+## reference code for getting/using/changing datasets, all commented out
 # get menu datasets
 'menus <- read.csv("data/Menu.csv")
 dishes <- read.csv("data/Dish.csv")
@@ -66,3 +68,12 @@ write.csv(page_filter, "data/new_york_pages.csv", row.names = FALSE)
 write.csv(item_filter, "data/new_york_items.csv", row.names = FALSE)
 write.csv(dish_filter, "data/new_york_dishes.csv", row.names = FALSE)'
 #commented out
+
+#The lines below were used to further filter the New York .csv files
+'
+ny_menus <- filter(ny_menus, 1900 <= year(as.Date(date)) & year(as.Date(date)) <= 1910)
+ny_menus <- filter(ny_menus, lat != 0)
+#ny_menus <- ny_menus[!duplicated(ny_menus$lat), ]
+ny_pages <- filter(ny_pages, menu_id %in% ny_menus$id)
+ny_dishes <- filter(ny_dishes, menu_page_id %in% ny_pages$id)
+'

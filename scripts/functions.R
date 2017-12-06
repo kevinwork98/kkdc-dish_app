@@ -1,6 +1,4 @@
 library(dplyr)
-library(ggplot2)
-#library(lubridate)
 
 #Reading in the data sets
 ny_menus <- read.csv("data/new_york_menus.csv")

@@ -3,7 +3,7 @@ library(ggplot2)
 #library(lubridate)
 
 #Reading in the data sets
-ny_menus <- read.csv("data/new_york_menus.csv")
+ny_menus <- read.csv("data/new_york_menus1.csv")
 ny_pages <- read.csv("data/new_york_pages.csv")
 ny_dishes <- read.csv("data/new_york_dishes.csv")
 
